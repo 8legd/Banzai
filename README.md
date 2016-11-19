@@ -1,6 +1,6 @@
 # Banzai
 
-A simple development pipeline built with (Docker)[https://www.docker.com/] and (Jenkins)[https://jenkins.io/]
+Development pipeline built with [Docker](https://www.docker.com/) and [Jenkins](https://jenkins.io/)
 
 ## Pre-Requisites
 
@@ -16,7 +16,7 @@ Make & Git
 
 2. [Install Docker Compose](https://docs.docker.com/compose/install/)
 
-3. Install Make & Git `sudo apt-get install build-essential git`
+3. Install make & git `sudo apt-get install build-essential git`
 
 ## Usage
 
@@ -34,13 +34,18 @@ To view the log `sudo docker exec banzai_jenkinsmaster_1 tail -100 /var/log/jenk
 
 ## Provenance
 
-Containerised jenkins setup based on https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose
-and https://boxboat.com/2016/06/18/docker-data-containers-and-named-volumes/
-and https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
-and http://container-solutions.com/running-docker-in-jenkins-in-docker/
+Containerised Jenkins setup based on following articles
+
+https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose/
+
+https://boxboat.com/2016/06/18/docker-data-containers-and-named-volumes/
+
+https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
+
+http://container-solutions.com/running-docker-in-jenkins-in-docker/
 
 ## Roadmap
 
-Add support for serving jenkins over HTTPS
+Add support for serving Jenkins over HTTPS
 
 Add [Checkup](https://github.com/sourcegraph/checkup)
