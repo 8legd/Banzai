@@ -1,4 +1,4 @@
-jenkinsmaster:
+jenkins-master:
  build: jenkins-master
  volumes:
   - /usr/bin/docker:/usr/bin/docker
@@ -7,9 +7,9 @@ jenkinsmaster:
   - jenkins_home:/var/jenkins_home
  ports:
   - "50000:50000"
-jenkinsnginx:
+jenkins-nginx:
  build: jenkins-nginx
  ports:
   - "80:80"
  links:
-  - jenkinsmaster:jenkins-master
+  - jenkins-master
