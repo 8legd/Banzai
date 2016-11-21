@@ -1,6 +1,6 @@
 # Banzai
 
-Development pipeline built with [Docker](https://www.docker.com/) and [Jenkins](https://jenkins.io/)
+Development pipeline built with [Docker](https://www.docker.com/) and [Jenkins](https://jenkins.io/) and supporting containerised build tasks e.g. use Docker Compose in your build tasks
 
 ## Pre-Requisites
 
@@ -10,13 +10,20 @@ Docker compose
 
 Make & Git
 
-## Setup
+## Example AWS Setup
 
-1. [Create an AWS EC2 instance and install Docker on it](https://docs.docker.com/engine/installation/cloud/cloud-ex-aws/)
+1. Create an AWS EC2 Linux AMI instance and set the [host name](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-hostname.html)
 
-2. [Install Docker Compose](https://docs.docker.com/compose/install/)
+2. Install Docker
+`sudo yum update -y`
+`sudo yum install -y docker`
+`sudo service docker start`
 
-3. Install make & git `sudo apt-get install build-essential git`
+3. Add Docker Compose
+`curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > docker-compose`
+`sudo chown root:root docker-compose && sudo chmod u=rwx,g=rx,o=rx docker-compose && sudo mv docker-compose /usr/bin/docker-compose`
+
+4. Add git `sudo yum install -y git`
 
 ## Usage
 
@@ -31,6 +38,23 @@ Jenkins should now be running on port 80
 To view the log `sudo docker exec banzai_jenkinsmaster_1 tail -100 /var/log/jenkins/jenkins.log`
 
 `make stop`
+
+## Demo
+
+To try out running a containerised build task:
+
+1. Create a new job selecting Freestyle project as the type
+
+2. Add a build step of type Execute shell and enter the following command:
+
+```
+git clone https://github.com/8legd/NewsOfTheWorld.git && cd NewsOfTheWorld
+make setup
+make test sch="World"
+make teardown
+```
+
+3. Save and run the build
 
 ## Provenance
 
