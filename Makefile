@@ -10,6 +10,7 @@ stop:
 	@sudo docker-compose stop
 
 remove:
+	@sudo docker-compose stop
 	@sudo docker-compose rm jenkinsnginx
 	@sudo docker-compose rm jenkinsmaster
 	@sudo docker volume rm jenkins_log
