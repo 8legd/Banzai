@@ -11,7 +11,7 @@ stop:
 
 remove:
 	@sudo docker-compose stop
-	@sudo docker-compose rm -f jenkins-nginx
-	@sudo docker-compose rm -f jenkins-master
+	@sudo docker-compose rm -f nginx
+	@sudo docker-compose rm -f jenkins
 	@sudo docker volume rm jenkins_log
 	@sudo docker volume rm jenkins_home

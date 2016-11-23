@@ -35,7 +35,7 @@ Make & Git
 
 Jenkins should now be running on port 80
 
-To view the log `sudo docker exec banzai_jenkins-master_1 tail -100 /var/log/jenkins/jenkins.log`
+To view the log `sudo docker exec banzai_jenkins_1 tail -100 /var/log/jenkins/jenkins.log`
 
 `make stop`
 
