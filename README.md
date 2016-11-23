@@ -43,9 +43,11 @@ To view the log `sudo docker exec banzai_jenkins-master_1 tail -100 /var/log/jen
 
 To try out running a containerised build task:
 
-1. Create a new job selecting Freestyle project as the type
+1. Create a new job choosing Freestyle project as the type
 
-2. Add a build step of type Execute shell and enter the following command:
+2. Under Build Environment select `Delete workspace before build starts`
+
+3. Add a build step of type Execute shell and enter the following command:
 
 ```
 git clone https://github.com/8legd/NewsOfTheWorld.git && cd NewsOfTheWorld
@@ -54,7 +56,7 @@ make test sch="World"
 make teardown
 ```
 
-3. Save and run the build
+4. Save and run the build
 
 ## Provenance
 
