@@ -21,16 +21,11 @@ RUN mkdir /var/cache/jenkins
 RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 
-# Set list of plugins to download / update in plugins.txt like this
-# pluginID:version
-# credentials:1.18
-# maven-plugin:2.7.1
-# ...
-# NOTE : Just set pluginID to download latest version of plugin.
-# NOTE : All plugins need to be listed as there is no transitive dependency resolution.
+# Pass a set of plugins to download with their dependencies
+# Use plugin artifact ID, whithout -plugin extension, and append the version if needed separated by :
+# Dependencies that are already included in the Jenkins war will only be downloaded if their required version is newer than the one included
 USER jenkins
-COPY plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
+RUN /usr/local/bin/install-plugins.sh credentials:2.1.9
 
 # Production options
 # ENV JAVA_OPTS="-Xmx8192m"
