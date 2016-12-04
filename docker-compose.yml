@@ -1,24 +1,27 @@
 version: "2"
 
 volumes:
-  jenkins_log:
-    external: true
   jenkins_home:
+    external: true
+  jenkins_log:
     external: true
 
 services:
+
+  nginx:
+   build: nginx
+   ports:
+    - "80:80"
+   depends_on:
+    - jenkins
+
   jenkins:
    build: jenkins
    volumes:
     - /usr/bin/docker:/usr/bin/docker
     - /var/run/docker.sock:/var/run/docker.sock
-    - jenkins_log:/var/log/jenkins
     - jenkins_home:/var/jenkins_home
+    - jenkins_log:/var/log/jenkins
    ports:
+    - "8080"
     - "50000:50000"
-  nginx:
-   build: nginx
-   ports:
-    - "80:80"
-   links:
-    - jenkins
