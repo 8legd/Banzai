@@ -48,6 +48,12 @@ sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/jenkins_home
 sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 ```
 
+[7]. DNS setup
+
+[7.1]. Jenkins
+
+The default nginx configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `banzai-jenkins.example.com`
+
 
 ## Usage
 
@@ -57,15 +63,11 @@ sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 
 `make start`
 
-Jenkins should now be running on port 80
-
-The default nginx configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created fot this sub-domain e.g. `banzai-jenkins.example.com`
-
-To view the logs `journalctl -f`
+and to stop the containers:
 
 `make stop`
 
-## Demo
+## Jenkins Containerised Build Demo
 
 To try out running a containerised build:
 
