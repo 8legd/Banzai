@@ -1,27 +1,30 @@
 version: "2"
 
-volumes:
-  jenkins_home:
-    external: true
-  jenkins_log:
-    external: true
-
 services:
 
-  nginx:
+  banzai-nginx:
+   container_name: "banzai-nginx"
+   logging:
+    driver: journald
+    options:
+     tag: "banzai-nginx"
    build: nginx
    ports:
     - "80:80"
    depends_on:
-    - jenkins
+    - banzai-jenkins
 
-  jenkins:
+  banzai-jenkins:
+   container_name: "banzai-jenkins"
+   logging:
+    driver: journald
+    options:
+     tag: "banzai-jenkins"
    build: jenkins
    volumes:
     - /usr/bin/docker:/usr/bin/docker
     - /var/run/docker.sock:/var/run/docker.sock
-    - jenkins_home:/var/jenkins_home
-    - jenkins_log:/var/log/jenkins
+    - /volumes/$AWS_EFS_DNS_NAME/banzai/jenkins_home:/var/jenkins_home
    ports:
     - "8080"
     - "50000:50000"

@@ -10,20 +10,44 @@ Docker compose
 
 Make & Git
 
-## Example AWS Setup
+## Example AWS Setup (Using AWS EFS and Ubuntu 16.04 EC2)
 
-1. Create an AWS EC2 Linux AMI instance and set the [host name](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-hostname.html)
+[1]. Connect to the Ubuntu 16.04 EC2 instance and set the host name
+```
+sudo hostname <host>
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+```
 
-2. Install Docker
-`sudo yum update -y`
-`sudo yum install -y docker`
-`sudo service docker start`
+[2]. Install utilities
+```
+sudo apt-get update && sudo apt-get install build-essential git nfs-common -y
+```
 
-3. Add Docker Compose
-`curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > docker-compose`
-`sudo chown root:root docker-compose && sudo chmod u=rwx,g=rx,o=rx docker-compose && sudo mv docker-compose /usr/bin/docker-compose`
+[3]. Install Docker as per https://docs.docker.com/engine/installation/linux/ubuntu/ and https://docs.docker.com/engine/installation/linux/linux-postinstall/
 
-4. Add git `sudo yum install -y git`
+[4]. Install Docker Compose
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chgrp docker /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+[5]. Set AWS_EFS_DNS_NAME env var
+```
+export AWS_EFS_DNS_NAME=<file-system-id.efs.aws-region.amazonaws.com>
+```
+(or add this more permenantly in `~/.bashrc`)
+
+[6]. Mount the AWS EFS volume and add project directories
+```
+sudo mkdir -p /volumes/$AWS_EFS_DNS_NAME
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $AWS_EFS_DNS_NAME:/ /volumes/$AWS_EFS_DNS_NAME
+sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai
+sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/jenkins_home
+sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
+```
+
 
 ## Usage
 
@@ -35,7 +59,7 @@ Make & Git
 
 Jenkins should now be running on port 80
 
-To view the log `sudo docker exec banzai_jenkins_1 tail -100 /var/log/jenkins/jenkins.log`
+To view the log `sudo docker exec banzai_jenkins tail -100 /var/log/jenkins/jenkins.log`
 
 `make stop`
 
