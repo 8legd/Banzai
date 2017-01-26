@@ -59,7 +59,9 @@ sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 
 Jenkins should now be running on port 80
 
-To view the log `sudo docker exec banzai_jenkins tail -100 /var/log/jenkins/jenkins.log`
+The default nginx configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created fot this sub-domain e.g. `banzai-jenkins.example.com`
+
+To view the logs `journalctl -f`
 
 `make stop`
 
