@@ -20,6 +20,7 @@ services:
    command: ["--conf", "/etc/Caddyfile", "--log", "stdout", "--email", "${CADDY_EMAIL}"]
    depends_on:
     - banzai-jenkins
+   restart: always
 
   banzai-jenkins:
    container_name: "banzai-jenkins"
@@ -35,3 +36,4 @@ services:
    ports:
     - "8080"
     - "50000:50000"
+   restart: always

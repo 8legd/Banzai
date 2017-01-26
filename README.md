@@ -103,6 +103,4 @@ http://container-solutions.com/running-docker-in-jenkins-in-docker/
 
 ## Roadmap
 
-Add support for serving Jenkins over HTTPS
-
 Add [Checkup](https://github.com/sourcegraph/checkup)
