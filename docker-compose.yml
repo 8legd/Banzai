@@ -2,15 +2,22 @@ version: "2"
 
 services:
 
-  banzai-nginx:
-   container_name: "banzai-nginx"
+  banzai-caddy:
+   container_name: "banzai-caddy"
    logging:
     driver: journald
     options:
-     tag: "banzai-nginx"
-   build: nginx
+     tag: "banzai-caddy"
+   build: caddy
+   volumes:
+    - /volumes/$AWS_EFS_DNS_NAME/banzai/caddy:/root/.caddy
    ports:
     - "80:80"
+    - "443:443"
+   environment:
+    - "CADDY_DOMAIN=${CADDY_DOMAIN}"
+   entrypoint: "/usr/bin/caddy"
+   command: ["--conf", "/etc/Caddyfile", "--log", "stdout", "--email", "${CADDY_EMAIL}"]
    depends_on:
     - banzai-jenkins
 

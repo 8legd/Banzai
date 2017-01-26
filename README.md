@@ -33,11 +33,13 @@ sudo chgrp docker /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-[5]. Set AWS_EFS_DNS_NAME env var
+[5]. Set AWS_EFS_DNS_NAME, CADDY_DOMAIN and CADDY_EMAIL env vars
 ```
 export AWS_EFS_DNS_NAME=<file-system-id.efs.aws-region.amazonaws.com>
+export CADDY_DOMAIN=<example.com>
+export CADDY_EMAIL=<admin@example.com>
 ```
-(or add this more permenantly in `~/.bashrc`)
+(or add these more permenantly in `~/.bashrc`)
 
 [6]. Mount the AWS EFS volume and add project directories
 ```
@@ -45,6 +47,7 @@ sudo mkdir -p /volumes/$AWS_EFS_DNS_NAME
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $AWS_EFS_DNS_NAME:/ /volumes/$AWS_EFS_DNS_NAME
 sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai
 sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/jenkins_home
+sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/caddy
 sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 ```
 
@@ -52,7 +55,7 @@ sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 
 [7.1]. Jenkins
 
-The default nginx configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `banzai-jenkins.example.com`
+The default configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `banzai-jenkins.example.com`
 
 
 ## Usage
