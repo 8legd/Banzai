@@ -1,6 +1,6 @@
 # Banzai
 
-Development pipeline built with [Docker](https://www.docker.com/) and [Jenkins](https://jenkins.io/) and supporting containerised build tasks e.g. use Docker Compose in your build tasks
+Development pipeline built with [Docker](https://www.docker.com/), [Jenkins](https://jenkins.io/) and [Portainer](http://portainer.io/) and supporting containerised build tasks e.g. use Docker Compose in your build tasks
 
 ## Pre-Requisites
 
@@ -56,7 +56,11 @@ sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 
 [7.1]. Jenkins
 
-The default configuration forwards requests for `banzai-jenkins.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `banzai-jenkins.example.com`
+The default configuration forwards requests for `jenkins.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `jenkins.example.com`
+
+[7.2]. Portainer
+
+The default configuration forwards requests for `portainer.*` so an appropriate DNS record will need to be created for this sub-domain e.g. `portainer.example.com`
 
 
 ## Usage
