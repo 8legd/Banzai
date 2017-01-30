@@ -37,3 +37,12 @@ services:
     - "8080"
     - "50000:50000"
    restart: always
+
+  banzai_portainer:
+   image: portainer/portainer
+   volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /volumes/$AWS_EFS_DNS_NAME/banzai/portainer:/data
+   ports:
+    - "9000:9000"
+   restart: always

@@ -48,6 +48,7 @@ sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,ret
 sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai
 sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/jenkins_home
 sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/caddy
+sudo mkdir /volumes/$AWS_EFS_DNS_NAME/banzai/portainer
 sudo chgrp -R docker /volumes/$AWS_EFS_DNS_NAME/banzai
 ```
 
